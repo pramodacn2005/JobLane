@@ -9,8 +9,10 @@ dotenv.config({path:'./config/config.env'})
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-    origin: "*",
-    credentials: true
+  origin: ["https://deploy-mern-lwhq.vercel.app"],
+  methods: ["POST", "GET"],
+  credentials: true
+
 }))
 
 app.use(fileUpload())
