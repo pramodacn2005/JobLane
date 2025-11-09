@@ -40,6 +40,12 @@ exports.register = async (req, res) => {
 
         const token = createToken(user._id, user.email)
 
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
+
         res.status(201).json({
             success: true,
             message: "User Created",
@@ -78,6 +84,12 @@ exports.login = async (req, res) => {
         }
 
         const token = createToken(user._id, user.email)
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
 
         res.status(200).json({
             success: true,

@@ -3,18 +3,18 @@ const app = express()
 const cors = require('cors')
 const dotenv = require('dotenv')
 const fileUpload = require('express-fileupload')
+const cookieParser = require('cookie-parser')
 
 dotenv.config({path:'./config/config.env'})
 
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: [
-    "https://job-lane-gamma.vercel.app",
-    "http://localhost:5173"
-  ],
+  origin: "https://job-lane-gamma.vercel.app",
   credentials: true
 }));
+
+app.use(cookieParser());
 
 app.use(fileUpload())
 
