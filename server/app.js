@@ -9,13 +9,14 @@ dotenv.config({path:'./config/config.env'})
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: ["https://job-lane-gamma.vercel.app/"],
+  origin: [
+    "https://job-lane-gamma.vercel.app",
+    "http://localhost:5173"
+  ],
   credentials: true
-
-}))
+}));
 
 app.use(fileUpload())
-
 
 const User = require('./routes/UserRoutes')
 const Job = require('./routes/JobRoutes')
@@ -29,10 +30,9 @@ app.use("/api/v1",Application)
 app.use("/api/v1",Admin)
 
 app.get("/",(req,res)=>{
-    res.json("I am working")
-})                           
+  res.json("Backend is Working ✅")
+})
 
-//for any unwanted error
 app.use(errorMiddleware);
 
-module.exports = app ;
+module.exports = app;
