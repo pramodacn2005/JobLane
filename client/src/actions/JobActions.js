@@ -4,7 +4,7 @@ import {newPostRequest, newPostSuccess, newPostFail, allJobsRequest, allJobsSucc
 }  from '../slices/JobSlice'
 import {toast} from 'react-toastify'
 import {me} from '../actions/UserActions'
-import axios from 'axios'
+import api from '../api'
 
 
 export const createJobPost = (jobData) => async (dispatch) => {
@@ -17,7 +17,7 @@ export const createJobPost = (jobData) => async (dispatch) => {
             } 
         }
 
-        const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/create/job`,jobData,config) ;        
+        const {data} = await api.post(`/api/v1/create/job`,jobData,config) ;        
 
         dispatch(newPostSuccess()) ;
         toast.success("Job posted successfully !")
@@ -31,7 +31,7 @@ export const getAllJobs = () => async (dispatch) => {
     try{
         dispatch(allJobsRequest()) ;
 
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/jobs`) ;
+        const {data} = await api.get(`/api/v1/jobs`) ;
 
         dispatch(allJobsSuccess(data.Jobs)) ;
 
@@ -45,7 +45,7 @@ export const getSingleJob = (id) => async (dispatch) => {
     try{
         dispatch(jobDetailsRequest()) ;
 
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/job/${id}`) ;
+        const {data} = await api.get(`/api/v1/job/${id}`) ;
 
         dispatch(jobDetailsSuccess(data.job)) ;
 
@@ -67,7 +67,7 @@ export const saveJob = (id) => async (dispatch) => {
 
         
         
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/saveJob/${id}`,config) ;
+        const {data} = await api.get(`/api/v1/saveJob/${id}`,config) ;
 
         dispatch(me())
         dispatch(jobSaveSuccess()) ;
@@ -91,7 +91,7 @@ export const getSavedJobs = () => async (dispatch) => {
         }
 
 
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/getSavedJobs`,config) ;
+        const {data} = await api.get(`/api/v1/getSavedJobs`,config) ;
 
         dispatch(getSavedJobsSuccess(data))
 

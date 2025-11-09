@@ -36,7 +36,7 @@ import {
   deleteJobSuccess,
   deleteJobFail,
 } from "../slices/AdminSlice";
-import axios from "axios";
+import api from "../api";
 import { toast } from "react-toastify";
 
 export const getAllJobsAdmin = () => async (dispatch) => {
@@ -49,8 +49,8 @@ export const getAllJobsAdmin = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/allJobs`,
+    const { data } = await api.get(
+      `/api/v1/admin/allJobs`,
       config
     );
 
@@ -70,8 +70,8 @@ export const getAllUsersAdmin = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/allUsers`,
+    const { data } = await api.get(
+      `/api/v1/admin/allUsers`,
       config
     );
 
@@ -91,8 +91,8 @@ export const getAllAppAdmin = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/allApp`,
+    const { data } = await api.get(
+      `/api/v1/admin/allApp`,
       config
     );
 
@@ -112,8 +112,8 @@ export const getAppData = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/getApplication/${id}`,
+    const { data } = await api.get(
+      `/api/v1/admin/getApplication/${id}`,
       config
     );
 
@@ -137,8 +137,8 @@ export const updateApplication = (id, dataBody) => async (dispatch) => {
         },
       };
 
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/v1/admin/updateApplication/${id}`,
+      const { data } = await api.put(
+        `/api/v1/admin/updateApplication/${id}`,
         dataBody,
         config
       );
@@ -162,8 +162,8 @@ export const deleteApp = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/deleteApplication/${id}`,
+    const { data } = await api.delete(
+      `/api/v1/admin/deleteApplication/${id}`,
       config
     );
 
@@ -185,8 +185,8 @@ export const getUserData = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/getUser/${id}`,
+    const { data } = await api.get(
+      `/api/v1/admin/getUser/${id}`,
       config
     );
 
@@ -206,8 +206,8 @@ export const updateUser = (id, userData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/updateUser/${id}`,
+    const { data } = await api.put(
+      `/api/v1/admin/updateUser/${id}`,
       userData,
       config
     );
@@ -230,8 +230,8 @@ export const deleteUser = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/deleteUser/${id}`,
+    const { data } = await api.delete(
+      `/api/v1/admin/deleteUser/${id}`,
       config
     );
 
@@ -253,8 +253,8 @@ export const getJobData = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/getJob/${id}`,
+    const { data } = await api.get(
+      `/api/v1/admin/getJob/${id}`,
       config
     );
 
@@ -274,8 +274,8 @@ export const updateJobData = (id, jobData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/updateJob/${id}`,
+    const { data } = await api.put(
+      `/api/v1/admin/updateJob/${id}`,
       jobData,
       config
     );
@@ -299,8 +299,8 @@ export const deleteJobData = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/api/v1/admin/deleteJob/${id}`,
+    const { data } = await api.delete(
+      `/api/v1/admin/deleteJob/${id}`,
       config
     );
 

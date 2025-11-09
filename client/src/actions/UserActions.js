@@ -6,7 +6,7 @@ import {
     deleteAccountRequest, deleteAccountSuccess, deleteAccountFail, logoutClearState
 } from '../slices/UserSlice'
 import { toast } from 'react-toastify'
-import axios from 'axios'
+import api from '../api'
 
 
 
@@ -14,7 +14,7 @@ export const registerUser = (userData) => async (dispatch) => {
     try {
         dispatch(registerRequest())
 
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/register`, userData);
+        const { data } = await api.post(`/api/v1/register`, userData);
 
         dispatch(registerSuccess())
         localStorage.setItem('userToken', data.token)
@@ -36,7 +36,7 @@ export const loginUser = (userData) => async (dispatch) => {
     try {
         dispatch(loginRequest())
 
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/login`, userData);
+        const { data } = await api.post(`/api/v1/login`, userData);
 
         dispatch(loginSuccess())
         localStorage.setItem('userToken', data.token)
@@ -60,7 +60,7 @@ export const logOrNot = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/isLogin`, config);
+        const { data } = await api.get(`/api/v1/isLogin`, config);
 
         dispatch(isLoginSuccess(data.isLogin))
 
@@ -81,7 +81,7 @@ export const me = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/me`, config);
+        const { data } = await api.get(`/api/v1/me`, config);
         
         localStorage.setItem("role", data.user.role)
 
@@ -103,7 +103,7 @@ export const changePass = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/changePassword`, userData, config)
+        const { data } = await api.put(`/api/v1/changePassword`, userData, config)
 
         dispatch(changePasswordSuccess())
         toast.success("Password Changed successfully !")
@@ -125,7 +125,7 @@ export const updateProfile = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/updateProfile`, userData, config)
+        const { data } = await api.put(`/api/v1/updateProfile`, userData, config)
 
         dispatch(updateProfileSuccess())
         toast.success("Profile Updated successfully !")
@@ -151,7 +151,7 @@ export const deleteAccount = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/deleteAccount`, userData, config)
+        const { data } = await api.put(`/api/v1/deleteAccount`, userData, config)
 
         console.log(data)
 
