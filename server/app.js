@@ -9,8 +9,7 @@ dotenv.config({path:'./config/config.env'})
 app.use(express.json({ limit: '10mb' }))
 
 app.use(cors({
-  origin: ["https://deploy-mern-lwhq.vercel.app"],
-  methods: ["POST", "GET"],
+  origin: ["https://job-lane-gamma.vercel.app/"],
   credentials: true
 
 }))
