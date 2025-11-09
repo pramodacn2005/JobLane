@@ -2,6 +2,7 @@ const User = require('../models/UserModel')
 const bcrypt = require('bcrypt')
 const { createToken } = require('../middlewares/auth')
 const cloudinary = require('cloudinary')
+const jwt = require('jsonwebtoken')
 
 
 exports.register = async (req, res) => {
@@ -49,7 +50,7 @@ exports.register = async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: "User Created",
+            message: "Success",
             user,
             token
         })
@@ -95,7 +96,7 @@ exports.login = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "Login successful",
+            message: "Success",
             user,
             token
         })
@@ -113,43 +114,81 @@ exports.login = async (req, res) => {
 
 exports.isLogin = async (req, res) => {
     try {
+        const token = req.cookies.token;
 
-        const user = await User.findById(req.user._id);
+        if (!token) {
+            return res.status(400).json({
+                success: false,
+                message: "Not logged in"
+            });
+        }
+
+        const decoded = jwt.verify(token, process.env.SECRET);
+        const user = await User.findById(decoded.id);
 
         if (user) {
             return res.status(200).json({
                 success: true,
                 isLogin: true
-            })
+            });
         } else {
             return res.status(200).json({
                 success: true,
                 isLogin: false
-            })
+            });
         }
 
     } catch (err) {
-        res.status(500).json({
+        if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid or expired token"
+            });
+        }
+        return res.status(500).json({
             success: false,
             message: err.message
-        })
+        });
     }
 }
 
 exports.me = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id);
+        const token = req.cookies.token;
 
-        res.status(200).json({
+        if (!token) {
+            return res.status(400).json({
+                success: false,
+                message: "Not logged in"
+            });
+        }
+
+        const decoded = jwt.verify(token, process.env.SECRET);
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
             success: true,
             user
-        })
+        });
 
     } catch (err) {
-        res.status(500).json({
+        if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid or expired token"
+            });
+        }
+        return res.status(500).json({
             success: false,
             message: err.message
-        })
+        });
     }
 }
 
